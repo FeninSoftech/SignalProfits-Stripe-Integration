@@ -1,0 +1,648 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+
+.auto-style1 {
+    width: 400px;
+    /*height: 400px;*/
+}
+
+/* Use in defalut page*/
+
+/*.auto-style1 {
+            height: 40px;
+        }*/
+
+.responsive-table {
+    overflow-x: auto;
+}
+
+.btn-css {
+    width: 100%;
+}
+
+.btn-header {
+    font-size: 1.6em;
+    color: darkred;
+}
+
+.custom-dropdown {
+    padding: 5px;
+    display: block;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    width: 100%;
+}
+
+.custom .ajax__combobox_inputcontainer .ajax__combobox_textboxcontainer input {
+    /*padding:8px;*/
+    /* display: block;*/
+    border: none;
+    border-bottom: 1px solid #ccc;
+    width: 100% !important;
+}
+
+.custom .ajax__combobox_inputcontainer .ajax__combobox_buttoncontainer button {
+    border: none;
+    display: inline-block;
+    outline: 0;
+    /*padding:8px 16px;*/
+    overflow: hidden;
+    vertical-align: middle;
+    text-decoration: none;
+    color: inherit;
+    background-color: inherit;
+    text-align: center;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.custom .ajax__combobox_itemlist {
+    border-color: #7F9DB9;
+}
+
+.radio-buttons {
+    padding-left: -20px;
+}
+
+@media (min-width:480px) {
+    .fullwidth {
+        width: 100% !important;
+    }
+
+    .adjustInrow tr {
+        display: table;
+        width: 100%;
+    }
+
+    .adjust td {
+        display: table-row;
+        background: #efefef;
+    }
+}
+
+@media (max-width: 1200px) {
+
+    .btn-header {
+        font-size: 1.2em;
+        color: darkred;
+    }
+
+    .btn-body {
+        font-size: 0.8em;
+    }
+}
+
+@media (max-width: 970px) {
+    .btn-header {
+        font-size: 0.8em;
+        color: darkred;
+    }
+
+    .btn-body {
+        font-size: 0.6em;
+    }
+}
+
+@media (max-width: 598px) {
+    .btn-header {
+        font-size: 1.1em;
+        color: darkred;
+    }
+}
+
+
+.padding-header h4 {
+    padding-top: 13px;
+}
+
+body {
+    margin: 0px !important;
+    padding-top: 0px !important;
+}
+
+.dropdown.dropdown-lg .dropdown-menu {
+    margin-top: -1px;
+    padding: 6px 20px;
+}
+
+.input-group-btn .btn-group {
+    display: flex !important;
+}
+
+.btn-group .btn {
+    border-radius: 0;
+    margin-left: -1px;
+}
+
+    .btn-group .btn:last-child {
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+    }
+
+.btn-group .form-horizontal .btn[type="submit"] {
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+.form-horizontal .form-group {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.form-group .form-control:last-child {
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+@media screen and (min-width: 768px) {
+    #adv-search {
+        width: 500px;
+        margin: 0 auto;
+    }
+
+    .dropdown.dropdown-lg {
+        position: static !important;
+    }
+
+        .dropdown.dropdown-lg .dropdown-menu {
+            min-width: 500px;
+        }
+}
+
+.table tbody tr td {
+    padding: 4px 4px 4px 4px !important;
+}
+
+    .table tbody tr td button, input[type="button"] {
+        padding: 2px 4px !important;
+        font-size: 13px !important;
+    }
+
+.jumbotron {
+    padding-top: 10px !important;
+    padding-bottom: 5px !important;
+}
+
+.container .jumbotron {
+    padding-left: 15px !important;
+}
+
+.jumbotron p {
+    margin-bottom: 10px !important;
+    font-size: 15px !important;
+    font-weight: 100 !important;
+}
+
+.jumbotron h1, .jumbotron .h1 {
+    font-size: 30px !important;
+    text-align: center !important;
+    font-weight: bold !important;
+}
+
+.price {
+    list-style-type: none;
+    border: 1px solid #eee;
+    margin: 0;
+    border-radius: 7px;
+    display: inline-block;
+    padding: 0px;
+    text-align: center;
+    -webkit-transition: margin-top 0.5s linear;
+    transition: margin-top 0.5s linear;
+    position: relative;
+}
+
+    .price:hover {
+        box-shadow: 0 8px 12px 0 rgba(0,0,0,0.2);
+        transition: margin-top 0.3s linear;
+    }
+
+    .price .header {
+        background-color: #111;
+        color: white;
+        font-size: 20px;
+    }
+
+    .price li {
+        border-bottom: 1px solid #eee;
+        padding: 4px;
+        text-align: center;
+        font-size: 12px;
+    }
+
+        .price li:last-child {
+            border-bottom: none;
+        }
+
+        .price li div {
+            padding: 5px;
+        }
+
+    .price .grey {
+        background-color: #F5F5F5;
+    }
+
+.btn-success {
+    background-color: #4CAF50 !important;
+    border: none;
+    color: white;
+    padding: 10px 25px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.btn-primary {
+    background-color: #428bca !important;
+    border: none;
+    color: white;
+    padding: 10px 25px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.w3-roboto {
+    font-family: "Roboto", sans-serif;
+}
+
+.w3-opensans {
+    font-family: "Open Sans", sans-serif;
+}
+
+.w3-montserrat {
+    font-family: "Montserrat", sans-serif;
+}
+/*.w3-navbar a{padding-top:0px !important;padding-bottom:2px !important;}*/
+.footer {
+    bottom: 0px;
+    position: absolute;
+}
+
+.parallax {
+    background-image: url('/Content/images/blurred-finance-background-numbers-background-forex-and-stock-quotes_ru0kl-yf__F0000.png');
+    /* Set a specific height */
+    /*min-height: 700px;*/
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 0 !important;
+}
+
+.imagetext {
+    text-align: center;
+    position: absolute;
+}
+
+a:link {
+    color: white;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+a:hover {
+    color: gold;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+a:visited {
+    color: white;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+a:active {
+    color: white;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+.inner-addon {
+    position: relative;
+}
+
+    /* style icon */
+    .inner-addon .glyphicon {
+        position: absolute;
+        padding: 10px;
+        pointer-events: none;
+    }
+
+/* align icon */
+.left-addon .glyphicon {
+    left: 0px;
+}
+
+.right-addon .glyphicon {
+    right: 0px;
+}
+
+/* add padding  */
+.left-addon input {
+    padding-left: 30px;
+}
+
+.right-addon input {
+    padding-right: 30px;
+}
+
+.footer1 {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    outline: none;
+    background-color: rgb(26, 45, 58);
+    font-weight: 700;
+    font-size: 32px;
+    text-align: center;
+    color: rgb(255, 227, 0);
+}
+
+.footer2 {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    outline: none;
+    background-color: #fff;
+    font-size: 16px;
+    text-align: center;
+    color: rgba(47, 47, 47, 0.54902);
+}
+
+.parallaxcontent {
+    padding-top: 5em;
+}
+
+.parallaxcontent1 {
+    color: #ffffff;
+    font-weight: 700;
+    text-shadow: 2px 2px 1px #000000;
+    font-size: 40px;
+}
+
+.parallaxcontent2 {
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 200;
+}
+
+.parallaxcontent3 {
+    color: #FFE300;
+    font-weight: 700;
+    font-size: 23px;
+    text-align: center;
+}
+
+#input {
+    max-width: 100%;
+    font-size: 16px;
+    min-height: 50px;
+}
+
+#submitbutton {
+    max-width: 100%;
+    background-color: #FFE300;
+    color: #000000;
+    font-weight: 900;
+    min-height: 50px;
+    font-size: 18px;
+}
+
+body {
+    font-family: Open Sans, Helvetica, sans-serif !important;
+}
+
+.topp {
+    background-color: #000000;
+    border-bottom: 1px solid #353131;
+}
+
+.copy {
+    vertical-align: middle;
+    width: 210px;
+    padding-top: 70px;
+}
+
+.logo {
+    vertical-align: middle;
+    width: 240px;
+}
+
+.toprow {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.navbar {
+    margin-bottom: 2px !important;
+    border-radius: 0px !important;
+    min-height: 12px !important;
+}
+
+.navbar-nav > li > a {
+    padding-top: 1px !important;
+    padding-bottom: 1px !important;
+}
+
+.navbar-nav > li > a {
+    color: #f3ed12 !important;
+}
+#dvLoading2 {
+    filter: alpha(opacity=50);
+    opacity: 0.7;
+    /*background: Gray url('../Content/Images/loading.gif') no-repeat center center;*/
+    height: 800px;
+    width: 100%;
+    position: fixed;
+    z-index: 1098000;
+    left: 0;
+    top: 0;
+}
+
+        #circularG {
+            position: relative;
+            width: 64px;
+            height: 64px;
+            left: 50%;
+            top: 300px;
+        }
+
+        .circularG {
+            position: absolute;
+            background-color: #0073BF;
+            width: 15px;
+            height: 15px;
+            -moz-border-radius: 10px;
+            -moz-animation-name: bounce_circularG;
+            -moz-animation-duration: 1.2s;
+            -moz-animation-iteration-count: infinite;
+            -moz-animation-direction: normal;
+            -webkit-border-radius: 10px;
+            -webkit-animation-name: bounce_circularG;
+            -webkit-animation-duration: 1.2s;
+            -webkit-animation-iteration-count: infinite;
+            -webkit-animation-direction: normal;
+            -ms-border-radius: 10px;
+            -ms-animation-name: bounce_circularG;
+            -ms-animation-duration: 1.2s;
+            -ms-animation-iteration-count: infinite;
+            -ms-animation-direction: normal;
+            -o-border-radius: 10px;
+            -o-animation-name: bounce_circularG;
+            -o-animation-duration: 1.2s;
+            -o-animation-iteration-count: infinite;
+            -o-animation-direction: normal;
+            border-radius: 10px;
+            animation-name: bounce_circularG;
+            animation-duration: 1.2s;
+            animation-iteration-count: infinite;
+            animation-direction: normal;
+        }
+
+        #circularG_1 {
+            left: 0;
+            top: 25px;
+            -moz-animation-delay: 0.45s;
+            -webkit-animation-delay: 0.45s;
+            -ms-animation-delay: 0.45s;
+            -o-animation-delay: 0.45s;
+            animation-delay: 0.45s;
+        }
+
+        #circularG_2 {
+            left: 7px;
+            top: 7px;
+            -moz-animation-delay: 0.6s;
+            -webkit-animation-delay: 0.6s;
+            -ms-animation-delay: 0.6s;
+            -o-animation-delay: 0.6s;
+            animation-delay: 0.6s;
+        }
+
+        #circularG_3 {
+            top: 0;
+            left: 25px;
+            -moz-animation-delay: 0.75s;
+            -webkit-animation-delay: 0.75s;
+            -ms-animation-delay: 0.75s;
+            -o-animation-delay: 0.75s;
+            animation-delay: 0.75s;
+        }
+
+        #circularG_4 {
+            right: 7px;
+            top: 7px;
+            -moz-animation-delay: 0.9s;
+            -webkit-animation-delay: 0.9s;
+            -ms-animation-delay: 0.9s;
+            -o-animation-delay: 0.9s;
+            animation-delay: 0.9s;
+        }
+
+        #circularG_5 {
+            right: 0;
+            top: 25px;
+            -moz-animation-delay: 1.05s;
+            -webkit-animation-delay: 1.05s;
+            -ms-animation-delay: 1.05s;
+            -o-animation-delay: 1.05s;
+            animation-delay: 1.05s;
+        }
+
+        #circularG_6 {
+            right: 7px;
+            bottom: 7px;
+            -moz-animation-delay: 1.2s;
+            -webkit-animation-delay: 1.2s;
+            -ms-animation-delay: 1.2s;
+            -o-animation-delay: 1.2s;
+            animation-delay: 1.2s;
+        }
+
+        #circularG_7 {
+            left: 25px;
+            bottom: 0;
+            -moz-animation-delay: 1.35s;
+            -webkit-animation-delay: 1.35s;
+            -ms-animation-delay: 1.35s;
+            -o-animation-delay: 1.35s;
+            animation-delay: 1.35s;
+        }
+
+        #circularG_8 {
+            left: 7px;
+            bottom: 7px;
+            -moz-animation-delay: 1.5s;
+            -webkit-animation-delay: 1.5s;
+            -ms-animation-delay: 1.5s;
+            -o-animation-delay: 1.5s;
+            animation-delay: 1.5s;
+        }
+
+
+        @-moz-keyframes bounce_circularG {
+            0% {
+                -moz-transform: scale(1);
+            }
+
+            100% {
+                -moz-transform: scale(.3);
+            }
+        }
+
+        @-webkit-keyframes bounce_circularG {
+            0% {
+                -webkit-transform: scale(1);
+            }
+
+            100% {
+                -webkit-transform: scale(.3);
+            }
+        }
+
+        @-ms-keyframes bounce_circularG {
+            0% {
+                -ms-transform: scale(1);
+            }
+
+            100% {
+                -ms-transform: scale(.3);
+            }
+        }
+
+        @-o-keyframes bounce_circularG {
+            0% {
+                -o-transform: scale(1);
+            }
+
+            100% {
+                -o-transform: scale(.3);
+            }
+        }
+
+        @keyframes bounce_circularG {
+            0% {
+                transform: scale(1);
+            }
+
+            100% {
+                transform: scale(.3);
+            }
+        }
