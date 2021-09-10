@@ -1,0 +1,85 @@
+﻿
+@{
+    ViewBag.Title = "Subscribe a Plan";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+</style>
+<h2 style="text-align:center">SignalProfits Plans</h2>
+<p style="text-align:center">Please select a plan that best fits for you</p>
+
+<div class="modal " id="updateCustomerSubscriptionModel" role="">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Manage Subscriptions</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="columns">
+                    <ul class="price" style="border: 3px solid #33c4b6;">
+                        <li class="header" style="background-color:#428bca"><i class="fa fa-check" style="float:left;font-size:40px;"></i>1 Month Subscription</li>
+                        <li class="grey">
+                            <div style="display:inline-block;font-size:20px;" contenteditable="false">$297 MONTH</div>
+                            <div style="position:relative">
+                                <div style="display:inline-block;font-size:20px;top:20px;position:absolute;" contenteditable="false">$</div>
+                                <div style="display:inline-block;font-size:70px;padding-left:10px;" contenteditable="false">297</div>
+                            </div>
+                            <div style="display:inline-block;font-size:18px;font-style:italic" contenteditable="false">Billed monthly, no set up fee.</div>
+                            <div style="display:inline-block;font-size:18px;font-style:italic" contenteditable="false">Your subscription will automatically renew every 30 days.</div>
+                            <div style="display:inline-block;font-size:20px;font-style:italic" contenteditable="false">CANCEL ANY TIME.</div>
+                            <div style="display:inline-block;font-size:18px;" contenteditable="false">Easy Actionable Signals</div>
+                        </li>
+                        <li>
+                            <div style="display:inline-block;font-size:18px;" contenteditable="false">Delivered To Your Phone</div>
+                        </li>
+                        <li class="grey">
+                            <div style="display:inline-block;font-size:18px;" contenteditable="false">7 Days Per Week </div>
+                        </li>
+                        <li>
+                            <div style="display:inline-block;font-size:18px;" contenteditable="false">Copy - Paste - Profit</div>
+                        </li>
+                        <li class="grey"><a href="#" class="btn btn-success">Sign Up</a></li>
+                        <li><a href="#" id="btnCanmnth" class="btn btn-primary">Cancel</a></li>
+                    </ul>
+                </div>
+                <div class="columns">
+                    <ul class="price">
+                        <li class="header" style="background-color:#4CAF50">6 Month Subscription</li>
+                        <li class="grey">
+                            <div style="display:inline-block;font-size:20px;" contenteditable="false">$197 MONTH / BILLED SEMI ANNUAL</div>
+                            <div style="position:relative">
+                                <div style="display:inline-block;font-size:20px;top:20px;position:absolute;" contenteditable="false">$</div>
+                                <div style="display:inline-block;font-size:70px;padding-left:10px;" contenteditable="false">197</div>
+                            </div>
+                            <div style="display:inline-block;font-size:18px;font-style:italic" contenteditable="false">$1,182.00 Billed semi-annually, no set up fee.</div>
+                            <div style="display:inline-block;font-size:18px;font-style:italic" contenteditable="false">Your subscription will automatically renew every 6 months. </div>
+                            <div style="display:inline-block;font-size:20px;font-style:italic" contenteditable="false">CANCEL ANY TIME.</div>
+                            <div style="display:inline-block;font-size:18px;" contenteditable="false">Easy Actionable Signals</div>
+                        </li>
+                        <li>
+                            <div style="display:inline-block;font-size:18px;" contenteditable="false">Delivered To Your Phone</div>
+                        </li>
+                        <li class="grey">
+                            <div style="display:inline-block;font-size:18px;" contenteditable="false">7 Days Per Week </div>
+                        </li>
+                        <li>
+                            <div style="display:inline-block;font-size:18px;" contenteditable="false">Copy - Paste - Profit</div>
+                        </li>
+                        <li class="grey"><a href="#" class="btn btn-success">Sign Up</a></li>
+                    </ul>
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

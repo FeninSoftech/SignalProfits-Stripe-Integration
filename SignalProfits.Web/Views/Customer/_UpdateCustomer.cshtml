@@ -1,0 +1,120 @@
+﻿@model SignalProfits.Web.Model.Login
+
+
+<div class="register-container">
+    <div class="row">
+        <div class="col-md-12">
+            @using (Html.BeginForm("UpdateCustomer", "Customer", FormMethod.Post, new { @class = "", id = "updateuser" }))
+            {
+                <div class="form-horizontal">                   
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.Id)
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3" for="FirstName">First Name</label>                        
+                        <div class="col-md-9">
+                            
+                            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", required = "First Name is required" } })
+                            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3" for="LastName">Last Name</label>                        
+                        <div class="col-md-9">
+                            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", required = "Last Name is required" } })
+                            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-3" })
+                        <div class="col-md-9">
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @readonly = "readonly", @class = "form-control" } })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-3" })
+                        <div class="col-md-9">
+                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3" for="ConfirmPassword">Re-Password</label>                         
+                        <div class="col-md-9">
+                            @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Phone, htmlAttributes: new { @class = "control-label col-md-3" })
+                        <div class="col-md-9">
+                            @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-3" })
+                        <div class="col-md-9">
+                            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.IsAdmin, htmlAttributes: new { @class = "control-label col-md-3" })
+                        <div class="col-md-9">
+                            <div class="checkbox">
+                                @Html.EditorFor(model => model.IsAdmin)
+                                @Html.ValidationMessageFor(model => model.IsAdmin, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.IsActive, htmlAttributes: new { @class = "control-label col-md-3" })
+                        <div class="col-md-9">
+                            <div class="checkbox">
+                                @Html.EditorFor(model => model.IsActive)
+                                @Html.ValidationMessageFor(model => model.IsActive, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-3 col-md-9">
+                            <input type="submit" value="Save" class="btn btn-success btn-block" />
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Content/Scripts/jquery.validate.js"></script>
+<script src="~/Content/Scripts/jquery.validate.unobtrusive.js"></script>
+<script>
+    var password = document.getElementById("password")
+  , confirm_password = document.getElementById("confirm_password");
+
+    function validatePassword() {
+        if (password.value != confirm_password.value) {
+            confirm_password.setCustomValidity("Passwords Don't Match");
+        } else {
+            confirm_password.setCustomValidity('');
+        }
+    }
+
+    password.onchange = validatePassword;
+    confirm_password.onkeyup = validatePassword;
+
+</script>

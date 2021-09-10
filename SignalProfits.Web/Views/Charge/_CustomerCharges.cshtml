@@ -1,0 +1,97 @@
+﻿@model List<SignalProfits.Web.Model.Charge>
+@{
+    ViewBag.Title = "";
+    Layout = null;
+}
+<style>
+    .refunded {
+        background-color: #fbeef6;
+    }
+</style>
+<div class="form-group">
+    <div class="alert alert-success" id="charges-status-alert">
+        <button type="button" class="close" data-dismiss="alert">x</button>
+        <span id="spanchargeStatus"></span>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Card Name</th>
+                    <th>Card Number</th>
+                    <th>Amount</th>
+                    <th>Payment Date</th>                    
+                    <th>Refund Date</th>   
+                    <th>Action/Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{int RowNo = 0;string classRefunded = string.Empty;}
+                @foreach (var item in Model)
+                {
+                    classRefunded = item.RefundedStatus ? "class=refunded" : string.Empty;
+                    <tr @classRefunded>
+                        <th scope="row">@{RowNo++;} @RowNo</th>
+                        <td>@item.CardName</td>
+                        <td>@item.CardNumber</td>
+                        <td>$@item.Amount.ToString("N2")</td>
+                        <td>@item.PaymentDate</td>                        
+                        <td>@item.RefundDate</td>
+                        <td>
+                         @if (item.RefundedStatus)
+                         {
+                            <span class="label label-info">Refunded</span>
+                         }
+                         else
+                         {
+                            <button type="button" class="btn btn-primary btnCancelCharges" title="Calcel this Charge" data-chid="@item.ChargeId" data-cid="@item.CustomerId">Refund</button>
+                         }
+                        </td>                      
+                    </tr>
+                          }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<script>
+    $(".btnCancelCharges").click(function () {
+        var $this = $(this);
+        $("#charges-status-alert").removeClass();
+        $("#dvLoading2").show();
+        $.ajax({
+            type: 'POST',
+            url: "@Url.Action("CancelCharges", "Charge")",
+            data: JSON.stringify({ ChargeId: $this.data('chid') }),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            $("#dvLoading2").hide();
+            $("#spanchargeStatus").html(response.message);
+            if (response.status) {
+                $("#charges-status-alert").addClass("alert alert-success");
+
+                $("#charges-status-alert").fadeTo(2000, 500).slideUp(500, function () {
+                    $("#charges-status-alert").slideUp(500);
+                });
+
+                GetCustomerCharges($this.data('cid'));
+            }
+            else {
+                $("#charges-status-alert").addClass("alert alert-danger");
+                $("#charges-status-alert").fadeTo(2000, 500);
+            }
+        },
+        error: function (x, y, z) {
+            $("#dvLoading2").hide();
+            $("#spanchargeStatus").html(x);
+            $("#charges-status-alert").addClass("alert alert-danger");
+            $("#charges-status-alert").fadeTo(2000, 500);
+        }
+    });
+    });
+</script>

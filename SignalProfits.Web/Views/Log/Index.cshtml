@@ -1,0 +1,90 @@
+﻿@{
+    ViewBag.Title = "User Notes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<link href="~/Content/css/jquery.dataTables.min.css.css" rel="stylesheet" />
+<script src="~/Content/Scripts/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.min.css" />
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js"></script>
+<style>
+     .paginate_button {
+      padding:  0.2em .6em!important;
+    }
+</style>
+<br />
+<div class="container">
+    <div class="row">
+        @using (Html.BeginForm("SearchLog", "Log", FormMethod.Post, new { @class = "", id = "SearchLog" }))
+        {
+            <div class="form-inline text-center" style="background-color:#f9f9f9;border:1px #f5f5f5 solid;padding-top:10px;padding-bottom:10px;">
+                <div class="form-group">
+                    <label for="startDate">Start date</label>
+                    <input type="text" class="form-control datepicker" required="Start Date is required" value="@ViewData["StartDate"]" id="startdate" placeholder="Start date">
+                </div>
+                <div class="form-group">
+                    <label for="endDate">End date</label>
+                    <input type="text" class="form-control datepicker" required="End Date is required" value="@ViewData["EndDate"]" id="enddate" placeholder="End date">
+                </div>
+                <div class="form-group">
+                    <label class="" for="orderBy">User</label>
+                    @Html.DropDownList("select user", (IEnumerable<SelectListItem>)ViewData["Users"], new { id = "users", @class = "form-control" })
+                </div>
+
+                <button type="submit" class="btn btn-primary btnLogsearch">Search</button>
+                <button type="button" class="btn btn-primary btnExport">Export</button>
+                
+            </div>
+        }
+        </div>
+    <br />
+        <div class="row" style="padding-top:15px;padding-bottom:15px;background-color:#f9f9f9;border:1px #f5f5f5 solid">
+            <div class="col-md-12" id="divLogTable">
+            </div>
+        </div>
+    </div>
+    <script>
+        document.getElementById('SearchLog').onsubmit = function (e) {
+            e.preventDefault();
+        }
+        $(document).ready(function () {
+            $('.datepicker').datepicker({
+                format: 'mm/dd/yyyy',               
+                autoclose: true
+            });
+
+            $(".btnLogsearch").click();
+        })
+
+        $(document).on("click", ".btnLogsearch", function () {
+            var filterdetails = {
+                startdate: $('#startdate').val(),
+                enddate: $('#enddate').val(),
+                userId: $('#users').val()
+            };
+            $("#dvLoading2").show();
+            $.get('@Url.Action("Search", "Log")/?startDate=' + filterdetails.startdate + '&endDate=' + filterdetails.enddate + '&userId=' + filterdetails.userId, function (data) {
+                $("#dvLoading2").hide();
+                $("#divLogTable").html(data);
+
+                $(document).ready(function () {
+                    $('#Logtbl').DataTable();
+                });
+            });
+        });
+
+        $(document).on("click", ".btnExport", function () {
+            var filterdetails = {
+                startdate: $('#startdate').val(),
+                enddate: $('#enddate').val(),
+                userId: $('#users').val()
+            };
+
+            window.location.href = '@Url.Action("ExportLog", "Log")/?startDate=' + filterdetails.startdate + '&endDate=' + filterdetails.enddate + '&userId=' + filterdetails.userId
+            @*$.get('@Url.Action("ExportLog", "Log")/?startDate=' + filterdetails.startdate + '&endDate=' + filterdetails.enddate + '&userId=' + filterdetails.userId, function (data) {
+            });*@
+        });
+    </script>

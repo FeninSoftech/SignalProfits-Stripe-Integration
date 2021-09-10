@@ -1,0 +1,33 @@
+﻿@model List<SignalProfits.Web.Model.Log>
+
+        <table class="table dataTable cell-border stripe" id="Logtbl">
+            <thead>
+                <tr>
+                    <th style="width:15%">
+                        Name
+                    </th>
+                    <th style="width:15%">
+                        Date
+                    </th>
+                    <th style="width:70%">
+                        Note
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                     {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Date)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Note)
+                            </td>
+                        </tr>
+                    }
+            </tbody>
+        </table>

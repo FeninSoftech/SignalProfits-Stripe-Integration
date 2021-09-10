@@ -1,0 +1,235 @@
+﻿@model SignalProfits.Web.Model.CustomerCard
+@{
+    ViewBag.Title = "Signal Profits";
+    Layout = null;
+}
+<script src="~/Content/Scripts/jquery.validate.js"></script>
+<script src="~/Content/Scripts/jquery.validate.unobtrusive.js"></script>
+@Html.HiddenFor(x => x.CardId, new { id = "cardId" })
+@Html.HiddenFor(x => x.CustomerId, new { id = "CustomerId" })
+
+<div class="form-group row">
+    <div class="col-md-12">
+        <table class="table table-bordered" id="tbl_Customers">
+            <thead>
+                <tr>
+                    <th>Card ID</th>
+                    <th>Name</th>
+                    <th>Card No.</th>
+                    <th>Exp. Date</th>
+                    <th>Default</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Cards != null && Model.Cards.Count() > 0)
+                {
+                    foreach (var item in Model.Cards)
+                    {
+                        <tr>
+                            <td id="tb_Id">@item.CardId</td>
+                            <td id="tb_Name">@item.Name</td>
+                            <td id="tb_CardNo">@item.CardNo</td>
+                            <td id="tb_CardExp">@item.ExpMonth/@item.ExpYear</td>
+                            <td id="tb_CardExp">@Html.DisplayFor(modelItem => item.IsDefault)</td>
+                            <td style="text-align:center">
+                                <button type="button" data-isdefault="@item.IsDefault" data-cardid="@item.CardId" style="padding: 4px 8px !important;" class="btn btn-primary update-details fa fa-edit" title="Edit" id="btnUpdate"></button>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+        <button type="button" id="AddCard" class="btn btn-primary">Add Card</button>
+    </div>
+</div>
+
+<div class="modal fade" id="CardDetails" role="dialog">
+    <div class="modal-dialog" style="width:425px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" id="btnCloseCard">&times;</button>
+                <h4 class="modal-title">Card Details</h4>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-success" style="margin-bottom:5px;padding:10px 5px 10px;" id="cus-card-status">
+                    <button type="button" class="close" data-dismiss="alert">x</button>
+                    <span id="spanCustCardStatus"></span>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="panel-body" style="padding-top:0px" id="payment-form">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="form-group input-sm">
+                                        <label for="cardNumber">CARD NUMBER</label>
+                                        <div class="input-group">
+                                            @Html.TextBoxFor(x => x.CardNo, new { @class = "form-control", placeholder = "Enter your card number", @maxlength = "16", id = "CardNo", required = "Card number is required" })
+                                            @Html.ValidationMessageFor(x => x.CardNo, "", new { @class = "text-danger" })
+                                            <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-6 col-md-6">
+                                    <div class="form-group input-sm">
+                                        <label for="cardExpiryMonth"><span class="hidden-xs">EXPIRATION</span><span class="visible-xs-inline">EXP</span> Month</label>
+                                        @{
+                                            List<SelectListItem> ExpMonth = new List<SelectListItem>();
+                                            ExpMonth.Add(new SelectListItem { Text = "01", Value = "1" });
+                                            ExpMonth.Add(new SelectListItem { Text = "02", Value = "2" });
+                                            ExpMonth.Add(new SelectListItem { Text = "03", Value = "3" });
+                                            ExpMonth.Add(new SelectListItem { Text = "04", Value = "4" });
+                                            ExpMonth.Add(new SelectListItem { Text = "05", Value = "5" });
+                                            ExpMonth.Add(new SelectListItem { Text = "06", Value = "6" });
+                                            ExpMonth.Add(new SelectListItem { Text = "07", Value = "7" });
+                                            ExpMonth.Add(new SelectListItem { Text = "08", Value = "8" });
+                                            ExpMonth.Add(new SelectListItem { Text = "09", Value = "9" });
+                                            ExpMonth.Add(new SelectListItem { Text = "10", Value = "10" });
+                                            ExpMonth.Add(new SelectListItem { Text = "11", Value = "11" });
+                                            ExpMonth.Add(new SelectListItem { Text = "12", Value = "12" });
+                                        }
+                                        @Html.DropDownListFor(x => x.ExpMonth, ExpMonth, "Month", new { @class = "form-control", id = "ExpMonth", placeholder = "Select Month", required = "Month is required" })
+                                        @Html.ValidationMessageFor(x => x.ExpMonth, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-xs-5 col-md-6 pull-right">
+                                    <div class="form-group input-sm">
+                                        <label for="cardExpiryYear"><span class="hidden-xs">EXPIRATION</span><span class="visible-xs-inline">EXP</span> Year</label>
+                                        @{
+                                            List<SelectListItem> lst = new List<SelectListItem>();
+                                            for (int i = DateTime.Now.Year; i <= DateTime.Now.AddYears(5).Year; i++)
+                                            {
+                                                lst.Add(new SelectListItem { Text = i.ToString(), Value = i.ToString() });
+                                            }
+                                        }
+                                        @Html.DropDownListFor(x => x.ExpYear, lst, "Year", new { @class = "form-control", id = "ExpYear", required = "Year is required" })
+                                        @Html.ValidationMessageFor(x => x.ExpYear, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="form-group input-sm">
+                                        <label for="inputCVV">CVV</label>
+                                        @Html.TextBoxFor(x => x.CVV, new { @class = "form-control", placeholder = "Enter your CVV", @maxlength = "3", id = "CVV", required = "CVV is required" })
+                                        @Html.ValidationMessageFor(x => x.CVV, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="form-group input-sm">
+                                        <label for="inputName">Card holder Name</label>
+                                        @Html.TextBoxFor(x => x.Name, new { @class = "form-control", placeholder = "Enter card holder name", id = "txtCardName" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="padding-top:5px;" class="checkbox">
+                                <label><input type="checkbox" id="chkIsDefault" />Make it default</label>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="form-group input-sm">
+                                        <button class="btn btn-success btn-block" data-cardid="@Model.CardId" id="Add" type="submit">Sumbit</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="display:none;">
+                                <div class="col-xs-12">
+                                    <p class="payment-errors"></p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).on("click", "#btnCloseCard", function () {
+        $('#CardDetails').modal('hide');
+    })
+
+    $(document).on("click", "#AddCard", function () {
+        $("#cardId").val("");
+        $('#chkIsDefault').attr('checked', false);
+        $("#CardDetails").modal('show');
+        $("#cus-card-status").hide();
+    })
+
+    $(document).on("click", ".update-details", function () {
+        $("#cus-card-status").hide();
+        $("#CardDetails").modal('show');
+
+        $("#cardId").val($(this).data('cardid'));
+        $("#txtCardName").val("");
+        $("#CardNo").val("");
+        $("#CVV").val("");
+
+        $("#CardNo").val($(this).closest("tr").find("#tb_CardNo").text());
+        $("#txtCardName").val($(this).closest("tr").find("#tb_Name").text());
+
+        $('#chkIsDefault').attr('checked', $(this).data('isdefault') == "True");
+
+        var CardExp = $(this).closest("tr").find("#tb_CardExp").text();
+        var date = CardExp.split('/');
+        $("#ExpMonth").val(date[0]);
+        $("#ExpYear").val(date[1]);
+
+    });
+
+    $(document).on("click", "#Add", function () {
+        var carddetail = new Object;
+        carddetail.CustomerId = $("#CustomerId").val().trim();
+        carddetail.CardNo = $("#CardNo").val().trim();
+        carddetail.ExpMonth = $("#ExpMonth").val().trim();
+        carddetail.ExpYear = $("#ExpYear").val().trim();
+        carddetail.CVV = $("#CVV").val().trim();
+        carddetail.Name = $("#txtCardName").val().trim();
+        carddetail.CardId = $("#cardId").val();
+        carddetail.IsDefault = $("#chkIsDefault").is(':checked');
+        $("#cus-card-status").hide();
+        $("#cus-card-status").removeClass();
+        $("#dvLoading2").show();
+        var postUrl = (carddetail.CardId == "" ? "@Url.Action("AddCard", "CustomerCard")" : "@Url.Action("EditCard", "CustomerCard")");
+        $.ajax({
+            type: 'POST',
+            url: postUrl,
+            data: JSON.stringify(carddetail),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                $("#dvLoading2").hide();
+                $("#spanCustCardStatus").html(response.message);
+                if (response.status) {
+                    $("#cus-card-status").addClass("alert alert-success");
+                    $("#cus-card-status").fadeTo(2000, 500).slideUp(500, function () {
+                        $("#cus-card-status").slideUp(500);
+                    });
+                    setTimeout(function () {
+                        $('#CardDetails').modal('hide');
+                        loadCard($("#CustomerId").val().trim());
+                    }, 1000);                   
+                }
+                else {
+                    $("#cus-card-status").addClass("alert alert-danger");
+                    $("#cus-card-status").fadeTo(2000, 500);
+                }
+            },
+            error: function (x, y, z) {
+                $("#dvLoading2").hide();
+                $("#spanCustCardStatus").html(x);
+                $("#cus-card-status").addClass("alert alert-danger");
+                $("#cus-card-status").fadeTo(2000, 500);
+            }
+        });
+
+    });
+
+
+</script>

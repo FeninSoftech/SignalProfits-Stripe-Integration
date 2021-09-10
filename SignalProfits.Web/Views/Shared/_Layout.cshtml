@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="~/Content/css/w3.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat|Open+Sans|Roboto" />
+    <link rel="stylesheet" href="~/Content/Site.css?v1.2" />
+    <link rel="stylesheet" href="~/Content/css/bootstrap.min.css" />
+    @Styles.Render("~/Content/fontawesome")
+
+    <script src="https://use.fontawesome.com/eae900c275.js"></script>
+    <script src="~/Content/Scripts/jquery.min.js"></script>
+    <script src="~/Content/Scripts/bootstrap.min.js"></script>
+    <style>
+
+    </style>
+</head>
+<body>
+    <div class="container-fluid topp">
+        <div class="container">
+            <div class="row toprow">
+                <div class="col-sm-4">
+                    <img src="~/Content/images/signalprofits_logo.png" class="logo" />
+                </div>
+                <div class="col-sm-4"></div>
+                <div class="col-sm-4">
+                    <a><img src="~/Content/images/signalprofits_copy.png" class="copy" /></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <ul class="nav navbar-nav">
+                @if (Session["User"] != null)
+                {
+                    <li class="active"><a href="@Url.Action("Index", "Home")">Home</a></li>
+
+                    SignalProfits.Web.Model.Login login = Session["User"] as SignalProfits.Web.Model.Login;
+                    if (login != null && login.IsAdmin)
+                    {
+                        <li><a href="@Url.Action("Index", "Customer")">Manage Customer</a></li>
+                        <li><a href="@Url.Action("Index", "Log")">Application Notes</a></li>
+                    }
+
+                }
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                @if (Session["User"] != null)
+                {
+                    <li><a href="@Url.Action("UserProfile","Register")"><span class="fa fa-user"></span> Profile</a></li>
+                    <li><a href="@Url.Action("LogOff","Login")"><span class="fa fa-sign-out"></span> Logout</a></li>
+                }
+            </ul>
+        </div>
+    </nav>
+    <div class="container" style="padding-bottom:40px;">
+        @RenderBody()
+    </div>
+    <div class="container-fluid footer2" style="border-top:1px black solid">
+        <b>SignalProfits.com - All Rights Reserved</b><br /><br />
+        <b style="color:#333333">All trading involves risk. Only risk capital you’re prepared to lose.</b>
+    </div>
+    <div id="dvLoading2" style="display: none">
+        <div id="circularG">
+            <div id="circularG_1" class="circularG">
+            </div>
+            <div id="circularG_2" class="circularG">
+            </div>
+            <div id="circularG_3" class="circularG">
+            </div>
+            <div id="circularG_4" class="circularG">
+            </div>
+            <div id="circularG_5" class="circularG">
+            </div>
+            <div id="circularG_6" class="circularG">
+            </div>
+            <div id="circularG_7" class="circularG">
+            </div>
+            <div id="circularG_8" class="circularG">
+            </div>
+        </div>
+    </div>
+    @RenderSection("scripts", required: false)
+    <script>
+        $(document).ready(function () {
+            var current = location.pathname;
+            $('.nav li a').each(function () {
+                var $this = $(this);
+                $this.parent("li").removeClass('active');
+                if ($this.attr('href').indexOf(current) !== -1) {
+                    $this.parent("li").addClass('active');
+                }
+            })
+        });
+    </script>
+</body>
+</html>

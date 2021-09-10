@@ -1,0 +1,127 @@
+﻿@model SignalProfits.Web.Model.CustomerSubscriptionModel
+<style>
+    * {
+        box-sizing: border-box;
+    }
+</style>
+<div class="form-group">
+    <div class="alert alert-success" id="sub-status-alert">
+        <button type="button" class="close" data-dismiss="alert">x</button>
+        <span id="spanSubStatus"></span>
+    </div>
+</div>
+<h2 style="text-align:center">Professional Crypto Signal Plans</h2>
+
+<div class="row">
+    <div class="col-lg-6">
+        @{
+            string styleVar = string.Empty;
+            if (Model.CurrentPlan == SignalProfits.Web.Helpers.CommonEnums.spmnth)
+            {
+                styleVar = "border:2px solid #0eb4e2;border-radius:7px;";
+            }            
+        }
+       
+        <ul class="price" style="@styleVar">
+            <li class="header" style="background-color:#428bca">
+                @if (Model.CurrentPlan == SignalProfits.Web.Helpers.CommonEnums.spmnth)
+            {
+                    <i class="fa fa-check" style="float:left;font-size:30px;"></i>
+                }
+                1 Month Subscription
+            </li>
+
+            <li class="grey">
+                <div style="font-size:15px;" contenteditable="false">$297 MONTH</div>
+                <div style="position:relative">
+                    <div style="padding-left:20px;padding-top:0px;" contenteditable="false">
+                        <div style="display:inline-block;font-size:20px;vertical-align:top;padding:20px 0px 0px 0px;">$</div>
+                        <div style="display:inline-block;font-size:70px;padding:0px;">297</div>
+                    </div>
+                </div>
+                <div style="font-style:italic" contenteditable="false">Billed monthly, no set up fee.</div>
+                <div style="font-style:italic" contenteditable="false">Your subscription will automatically renew every 30 days.</div>
+                <div style="font-style:italic" contenteditable="false">CANCEL ANY TIME.</div>
+            </li>
+            <li>
+                <div contenteditable="false">Easy Actionable Signals</div>
+            </li>
+            <li class="grey">
+                <div contenteditable="false">Delivered To Your Phone</div>
+            </li>
+            <li>
+                <div contenteditable="false">7 Days Per Week </div>
+            </li>
+            <li class="grey">
+                <div contenteditable="false">Copy - Paste - Profit</div>
+            </li>
+            @if (Model.CurrentPlan == SignalProfits.Web.Helpers.CommonEnums.spmnth)
+            {
+                <li><a href="#" data-currid="@Model.SubscriptionId" data-subcusid="@Model.CustomerId" data-subaction="cancel" class="btn btn-success manageSubscription">Cancel</a></li>                
+            }
+            else if (string.IsNullOrWhiteSpace(Model.CurrentPlan))
+            {
+                <li><a href="#" data-planid="@Model.SpMnthPlanID" data-subcusid="@Model.CustomerId" data-subaction="subscribe" class="btn btn-success manageSubscription">Subscribe</a></li>
+            }
+            else if (Model.CurrentPlan == SignalProfits.Web.Helpers.CommonEnums.spsemi)
+            {
+                <li><a href="#" data-planid="@Model.SpMnthPlanID" data-currid="@Model.SubscriptionId" data-subcusid="@Model.CustomerId" data-subaction="downgrade" class="btn btn-success manageSubscription">Downgrade</a></li>
+            }
+        </ul>
+    </div>
+    <div class="col-lg-6">
+        @{
+            string styleVarSemi = string.Empty;
+            if (Model.CurrentPlan == SignalProfits.Web.Helpers.CommonEnums.spsemi)
+            {
+                styleVarSemi = "border:2px solid #0eb4e2;border-radius:7px;";
+            }
+        }
+        <ul class="price" style="@styleVarSemi">
+            <li class="header" style="background-color:#4CAF50">
+                @if (Model.CurrentPlan == SignalProfits.Web.Helpers.CommonEnums.spsemi)
+                {
+                    <i class="fa fa-check" style="float:left;font-size:30px;"></i>
+                }
+                6 Month Subscription
+            </li>
+
+            <li class="grey">
+                <div style="font-size:15px;" contenteditable="false">$197 MONTH / BILLED SEMI ANNUAL</div>
+                <div style="position:relative">
+                    <div style="padding-left:20px;padding-top:0px;" contenteditable="false">
+                        <div style="display:inline-block;font-size:20px;vertical-align:top;padding:20px 0px 0px 0px;">$</div>
+                        <div style="display:inline-block;font-size:70px;padding:0px;">197</div>
+                    </div>
+                </div>
+                <div style="font-style:italic" contenteditable="false">$1,182.00 Billed semi-annually, no set up fee.</div>
+                <div style="font-style:italic" contenteditable="false">Your subscription will automatically renew every 6 months. </div>
+                <div style="font-style:italic" contenteditable="false">CANCEL ANY TIME.</div>
+            </li>
+            <li>
+                <div contenteditable="false">Easy Actionable Signals</div>
+            </li>
+            <li class="grey">
+                <div contenteditable="false">Delivered To Your Phone</div>
+            </li>
+            <li>
+                <div contenteditable="false">7 Days Per Week </div>
+            </li>
+            <li class="grey">
+                <div contenteditable="false">Copy - Paste - Profit</div>
+            </li>
+            @if (Model.CurrentPlan == SignalProfits.Web.Helpers.CommonEnums.spsemi)
+            {
+                <li><a href="#" data-currid="@Model.SubscriptionId" data-subcusid="@Model.CustomerId" data-subaction="cancel" class="btn btn-success manageSubscription">Cancel</a></li>                
+            }
+            else if (string.IsNullOrWhiteSpace(Model.CurrentPlan))
+            {
+                <li><a href="#" data-planid="@Model.SpSemiPlanID" data-subcusid="@Model.CustomerId" data-subaction="subscribe" class="btn btn-success manageSubscription">Subscribe</a></li>
+            }
+            else if (Model.CurrentPlan == SignalProfits.Web.Helpers.CommonEnums.spmnth)
+            {
+                <li><a href="#" data-planid="@Model.SpSemiPlanID" data-currid="@Model.SubscriptionId" data-subcusid="@Model.CustomerId" data-subaction="upgrade" class="btn btn-success manageSubscription">Upgrade</a></li>
+            }
+        </ul>
+    </div>
+</div>

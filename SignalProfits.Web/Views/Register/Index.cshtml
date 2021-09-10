@@ -1,0 +1,129 @@
+﻿@model SignalProfits.Web.Model.Login
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Content/Scripts/jquery.validate.js"></script>
+<script src="~/Content/Scripts/jquery.validate.unobtrusive.js"></script>
+<style>
+    .hpanel .panel-body {
+        background: #f9f9f9 !important;
+        border: 1px solid #e4e5e7 !important;
+        border-radius: 2px !important;
+        padding: 20px !important;
+        position: relative !important;
+    }
+
+    .register-container {
+        max-width: 500px !important;
+        margin: auto;
+    }
+</style>
+<br />
+<div class="jumbotron">
+    <p>
+        Make sure to enter the Email Address you signed up with and create a password to register your account.
+    </p>
+    <p>Required Fields: First Name, Last Name, Email, Password, Phone</p>
+</div>
+<div class="register-container">
+    <div class="row">
+        <div class="col-md-12">
+            @if (@ViewBag.Error != null)
+            {
+                <div class="form-group">
+                    <div class="alert alert-danger" id="cus-card-error-alert">
+                        <button type="button" class="close" data-dismiss="alert">x</button>
+                        <strong>Error! </strong>
+                        @ViewBag.Error;
+                    </div>
+                </div>
+            }
+            <div class="text-center m-b-md">
+                <h3>Registration</h3>
+            </div>
+            <div class="hpanel">
+                <div class="panel-body">
+                    @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "", id = "register" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="row">
+                            <div class="form-group col-lg-12">
+                                <div class="form-group col-lg-12">
+                                    <label>First Name</label>
+                                    @Html.TextBoxFor(model => model.FirstName, new { maxlength = 200, @class = "form-control", @placeholder = "First name", required = "First name is required" })
+                                    @Html.ValidationMessageFor(x => x.FirstName, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group col-lg-12">
+                                    <label>Last Name</label>
+                                    @Html.TextBoxFor(model => model.LastName, new { maxlength = 200, @class = "form-control", @placeholder = "Last name", })
+                                </div>
+                                <div class="form-group col-lg-12">
+                                    <label>Email</label>
+                                    @Html.TextBoxFor(model => model.Email, new { maxlength = 200, @class = "form-control", @placeholder = "Email address", required = "Email is required", Type = "email" })
+                                    @Html.ValidationMessageFor(x => x.Email, "", new { @class = "text-danger" })
+                                    <b class="tooltip tooltip-bottom-right">Needed to verify your account</b>
+                                </div>
+                                <div class="form-group col-lg-12">
+                                    <label>Password</label>
+                                    @Html.PasswordFor(model => model.Password, new { @class = "form-control", @placeholder = "Password", id = "password", required = "Password is required" })
+                                    @Html.ValidationMessageFor(x => x.Password, "", new { @class = "text-danger" })
+                                    <b class="tooltip tooltip-bottom-right">Don't forget your password</b>
+                                </div>
+                                <div class="form-group col-lg-12">
+                                    <label>Re-Enter Password</label>
+                                    @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "form-control", @placeholder = "Confirm password", id = "confirm_password", required = "Confirm Password is required" })
+                                    @Html.ValidationMessageFor(x => x.ConfirmPassword, "", new { @class = "text-danger" })
+                                    <b class="tooltip tooltip-bottom-right">Don't forget your password</b>
+                                </div>
+                                <div class="form-group col-lg-12">
+                                    <label>Phone</label>
+                                    @Html.TextBoxFor(model => model.Phone, new { maxlength = 20, @class = "form-control", @placeholder = "Cell Phone" })
+                                    <b class="tooltip tooltip-bottom-right">Please enter your cell phone number</b>
+                                </div>
+                                <div class="form-group col-lg-12">
+                                    <label>Address</label>
+                                    @Html.TextAreaFor(model => model.Address, new { maxlength = 1000, @class = "form-control", @placeholder = "Address" })
+                                    <b class="tooltip tooltip-bottom-right">Please enter your address</b>
+                                </div>
+                                <div class="form-group col-lg-12">
+                                    <button class="btn btn-success btn-block" type="submit">Register</button>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-12">
+        <div class="alert alert-warning">
+            If you are having problems send email to:
+            <a style="color:blue" href="mailto:cancel@signalprofits.com" target="_top">cancel@signalprofits.com</a>
+
+        </div>
+    </div>
+</div>
+<script>
+    var password = document.getElementById("password")
+  , confirm_password = document.getElementById("confirm_password");
+
+    function validatePassword() {
+        if (password.value != confirm_password.value) {
+            confirm_password.setCustomValidity("Passwords Don't Match");
+        } else {
+            confirm_password.setCustomValidity('');
+        }
+    }
+
+    password.onchange = validatePassword;
+    confirm_password.onkeyup = validatePassword;
+
+    $("#cus-card-error-alert").fadeTo(2000, 500).slideUp(500, function () {
+        $("#cus-card-error-alert").slideUp(500);
+    });
+
+</script>

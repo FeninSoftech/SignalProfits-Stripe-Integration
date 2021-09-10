@@ -1,0 +1,422 @@
+﻿@model List<SignalProfits.Web.Model.CustomerModel>
+
+@{
+    ViewBag.Title = "Cancel Subscription";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/css/select2.min.css" rel="stylesheet" />
+<link href="~/Content/css/lander.css" rel="stylesheet" />
+<script src="~/Content/Scripts/select2.min.js"></script>
+
+<div class="container form-inline">
+    <br />
+    <div class="jumbotron">
+        <h1>Cancel You Subscription </h1>
+        <p>
+            If you would like to cancel your Signal Profits subscription, enter your email address into the box and click SEARCH
+        </p>
+        <p>Note: make sure you enter the email address you signed up with</p>
+    </div>
+    <div class="row">
+        @if (@TempData["SuccessMsg"] != null)
+            {
+            <div class="form-group col-lg-12">
+                <div class="alert alert-success" id="home-success-alert">
+                    <button type="button" class="close" data-dismiss="alert">x</button>
+                    <strong>Success! </strong>
+                    @TempData["SuccessMsg"]
+                </div>
+            </div>
+        }
+        @if (@TempData["ErrorMsg"] != null)
+            {
+            <div class="form-group col-lg-12">
+                <div class="alert alert-danger" id="home-error-alert">
+                    <button type="button" class="close" data-dismiss="alert">x</button>
+                    <strong>Error! </strong>
+                    @TempData["ErrorMsg"]
+                </div>
+            </div>
+        }
+        @if (Session["User"] != null)
+        {
+            SignalProfits.Web.Model.Login login = Session["User"] as SignalProfits.Web.Model.Login;
+            if (login != null && login.IsAdmin)
+            {
+                <form action="/Home/SearchCustomer" method="post">
+                    <div class="col-md-3">
+                        <div class="form-group" style="width:100%">
+                            @*<label for="email">Email address:</label>*@
+                            <input type="email" class="form-control" id="email" required="required" name="email" style="width:100%;" placeholder="Email Address" />
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-default" onclick="$('#dvLoading2').show();" id="btnSearchCustomer">Search</button>
+                        </div>
+                    </div>
+                </form>
+            }
+        }
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-bordered" id="tbl_Customers">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Description</th>
+                        <th>Email</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{int RowNo = 0;}
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td scope="row">@{RowNo++;} @RowNo</td>
+                            <td>@item.Description</td>
+                            <td>@item.Email</td>
+                            <td style="text-align:center;">
+                                <button type="button" class="btn btn-primary update-details" data-cid="@item.CustomerId">Update</button>
+                                <button type="button" class="btn btn-primary cancel-subscription" data-cid="@item.CustomerId">Cancel Subscription</button>
+                                <button type="button" class="btn btn-primary update-subscription" data-cid="@item.CustomerId">Change Subscription</button>
+                                <button type="button" class="btn btn-primary update-Address" data-cid="@item.CustomerId">Update Information</button>
+                                <button type="button" class="btn btn-primary update-Card" data-cid="@item.CustomerId">Manage Card</button>
+                                <button type="button" class="btn btn-primary cancel-charges" data-cid="@item.CustomerId">Manage Refund</button>
+                            </td>
+                        </tr>
+                                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="jumbotron">
+                <ul style="list-style:disc">
+                    <li>Cancel Subscription: Click here if you wish to cancel your subscription</li>
+                    <li>Change Plan: Click here to upgrade or downgrade existing subscription</li>
+                    <li>Update Information: Click here to update your information, Name, Address, Phone</li>
+                    <li>Manage Card: Click here to enter a new payment card</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-warning">
+                if you are having problems cancelling your subscription, please send an email to
+                <a style="color:blue" href="mailto:cancel@signalprofits.com" target="_top">cancel@signalprofits.com</a>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="updateCustomerDetailsModel" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Update Customer Details</h4>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary btnUpdateCustomerDetails">Update</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="AllCustomerSubscriptionModel" role="dialog">
+    <div class="modal-dialog" style="width: 35%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Current Subscriptions</h4>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="updateCustomerSubscriptionModel" role="dialog">
+    <div class="modal-dialog" style="width: 35%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Manage Subscriptions</h4>
+            </div>
+            <div class="modal-body">
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="updateCustomerAddressModel" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Customer Address Details</h4>
+            </div>
+            @using (Html.BeginForm("UpdateCustomerAddress", "CustomerAddress", FormMethod.Post, new { @class = "", id = "custAddressForm" }))
+            {
+                <div class="modal-body">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" onclick="$('#dvLoading2').show();" class="btn btn-primary btnUpdateCustomerAddress">Update</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="updateCustomerCardModel" role="dialog">
+    <div class="modal-dialog" style="width: 50%;height:100%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Customer card Details</h4>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="CustomerCancelCharges" role="dialog">
+    <div class="modal-dialog" style="width: 48%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Current Charges</h4>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#cust-status-alert").hide();
+        $("#sub-status-alert").hide();
+
+        if (@ViewBag.showCutomerList == 1)
+        {
+            $("#tbl_Customers").show();
+        }
+        else {
+            $("#tbl_Customers").hide();
+        }
+
+        $(".update-details").click(function () {
+            var custID = $(this).data('cid');
+            $("#dvLoading2").show();
+            $.get('@Url.Action("LoadCustomerDetail", "Home")/?id=' + custID, function (data) {
+                $("#dvLoading2").hide();
+                $('#updateCustomerDetailsModel').find('.modal-body').empty();
+                $('#updateCustomerDetailsModel').find('.modal-body').html(data);
+                $("#updateCustomerDetailsModel").modal('show');
+                $("#cust-status-alert").hide();
+            });
+        });
+
+        $(".cancel-subscription").click(function () {
+            var custID = $(this).data('cid');
+            loadAllSubscription(custID);
+        });
+
+        $(".cancel-charges").click(function () {
+            var custID = $(this).data('cid');
+            GetCustomerCharges(custID);
+        });
+
+        $(".update-subscription").click(function () {
+            var custID = $(this).data('cid');
+            loadSubscription(custID);
+        });
+        $(".update-Address").click(function () {
+
+            var custID = $(this).data('cid');
+            $("#dvLoading2").show();
+            $.get('@Url.Action("LoadAddressDetails", "CustomerAddress")/?id=' + custID, function (data) {
+                $("#dvLoading2").hide();
+                $('#updateCustomerAddressModel').find('.modal-body').html(data);
+                $("#updateCustomerAddressModel").modal('show');
+                $("#address-success-alert").hide();
+                $("#address-error-alert").hide();
+            });
+        });
+        $(".update-Card").click(function () {
+            var custID = $(this).data('cid');
+            loadCard(custID);
+        });
+        $("#home-success-alert").fadeTo(2000, 500).slideUp(500, function(){
+            $("#home-success-alert").slideUp(500);
+        });
+        $("#home-error-alert").fadeTo(2000, 500).slideUp(500, function(){
+            $("#home-error-alert").slideUp(500);
+        });
+
+    });
+
+    function loadCard(custID)
+    {
+        $("#dvLoading2").show();
+        $.get('@Url.Action("LoadCustomerCard", "CustomerCard")/?id=' + custID, function (data) {
+            $("#dvLoading2").hide();
+            $('#updateCustomerCardModel').find('.modal-body').html(data);
+            $("#updateCustomerCardModel").modal('show');
+            $("#card-success-alert").hide();
+            $("#card-error-alert").hide();
+        });
+    }
+
+    $(document).on("click", ".btnUpdateCustomerDetails", function () {
+        var $model = $(this).parents("#updateCustomerDetailsModel");
+        var customerDetails = new Object;
+        customerDetails.CustomerId = $model.find("#hdnCustomerId").val().trim();
+        customerDetails.Description = $model.find("#Description").val().trim();
+        customerDetails.Email = $model.find("#Email").val().trim();
+        $("#cust-status-alert").removeClass();
+
+        $("#dvLoading2").show();
+        $.ajax({
+            type: 'POST',
+            url: "@Url.Action("UpdateCustomer", "Home")",
+            data: JSON.stringify(customerDetails),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                $("#dvLoading2").hide();
+                $("#spanCusStatus").html(response.message);
+                if (response.status) {
+                    $("#cust-status-alert").addClass("alert alert-success");
+
+                    $("#cust-status-alert").fadeTo(2000, 500).slideUp(500, function(){
+                        $("#sub-status-alert").slideUp(500);
+                    });
+                }
+                else {
+                    $("#cust-status-alert").addClass("alert alert-danger");
+                    $("#cust-status-alert").fadeTo(2000, 500);
+                }
+            },
+            error: function (x, y, z) {
+                $("#dvLoading2").hide();
+                $("#spanCusStatus").html(x);
+                $("#cust-status-alert").addClass("alert alert-danger");
+                $("#cust-status-alert").fadeTo(2000, 500);
+            }
+        });
+    });
+
+
+    function loadAllSubscription(custID)
+    {
+        $("#dvLoading2").show();
+        $.get('@Url.Action("GetAllSubscriptions", "Home")/?id=' + custID, function (data) {
+            $("#dvLoading2").hide();
+            $('#AllCustomerSubscriptionModel').find('.modal-body').html(data);
+            $("#AllCustomerSubscriptionModel").modal('show');
+            $("#suball-status-alert").hide();
+        });
+    }
+
+
+    function GetCustomerCharges(custID)
+    {
+        $("#dvLoading2").show();
+        $.get('@Url.Action("GetCustomerCharges", "Charge")/?id=' + custID, function (data) {
+            $("#dvLoading2").hide();
+            $('#CustomerCancelCharges').find('.modal-body').html(data);
+            $("#CustomerCancelCharges").modal('show');
+            $("#charges-status-alert").hide();
+        });
+    }
+
+    function loadSubscription(custID)
+    {
+        $("#dvLoading2").show();
+        $.get('@Url.Action("LoadCustomerSubscriptions", "Home")/?id=' + custID, function (data) {
+            $("#dvLoading2").hide();
+            $('#updateCustomerSubscriptionModel').find('.modal-body').html(data);
+            $("#updateCustomerSubscriptionModel").modal('show');
+            $("#sub-status-alert").hide();
+        });
+    }
+
+
+    $(document).on("click", ".manageSubscription", function () {
+        var $this = $(this);
+        $("#sub-status-alert").removeClass();
+
+        $("#dvLoading2").show();
+        $('body').css("background","filter: alpha(opacity=50);opacity: 0.7;background: Gray no-repeat center center;");
+
+        var postData;
+        var action = $this.data('subaction')
+        if(action == "cancel")
+        {
+            postData = {action: "cancel", custId: $this.data('subcusid'), currSubId: $this.data('currid'), planId:null };
+        }
+        else if(action == "subscribe")
+        {
+            postData = {action: "subscribe", custId: $this.data('subcusid'), currSubId: null, planId:$this.data('planid') };
+        }
+        else if(action == "upgrade")
+        {
+            postData = {action: "upgrade", custId: $this.data('subcusid'), currSubId: $this.data('currid'), planId:$this.data('planid') };
+        }
+        else if(action == "downgrade")
+        {
+            postData = {action: "downgrade", custId: $this.data('subcusid'), currSubId: $this.data('currid'), planId:$this.data('planid') };
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: "@Url.Action("ManagePlan", "Home")",
+            data: JSON.stringify(postData),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                $("#dvLoading2").hide();
+                $("#spanSubStatus").html(response.message);
+                if (response.status) {
+                    $("#sub-status-alert").addClass("alert alert-success");
+
+                    $("#sub-status-alert").fadeTo(2000, 500).slideUp(500, function(){
+                        $("#sub-status-alert").slideUp(500);
+                    });
+
+                    loadSubscription(postData.custId);
+                }
+                else {
+                    $("#sub-status-alert").addClass("alert alert-danger");
+                    $("#sub-status-alert").fadeTo(2000, 500);
+                }
+            },
+            error: function (x, y, z) {
+                $("#dvLoading2").hide();
+                $("#spanSubStatus").html(x);
+                $("#sub-status-alert").addClass("alert alert-danger");
+                $("#sub-status-alert").fadeTo(2000, 500);
+            }
+        });
+    });
+</script>
